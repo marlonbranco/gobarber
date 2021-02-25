@@ -20,8 +20,8 @@ describe('SendForgotPasswordEmail', () => {
 
     sendForgotPasswordEmail = new SendForgotPasswordEmailService(
       fakeUsersRepository,
-      fakeMailProvider,
       fakeUserTokensRepository,
+      fakeMailProvider,
     );
   });
   it('should be able to recover the password using email', async () => {
