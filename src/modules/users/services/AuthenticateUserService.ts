@@ -1,7 +1,8 @@
+import 'dotenv/config';
 import { sign } from 'jsonwebtoken';
-import authConfig from '@config/auth';
 import { injectable, inject } from 'tsyringe';
 
+import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
@@ -45,6 +46,10 @@ class AuthenticateUserService {
     }
 
     const { expiresIn, secret } = authConfig.jwt;
+
+    if (!secret) {
+      throw new AppError('Secret is not defined on the configuration');
+    }
 
     const token = sign({}, secret, {
       subject: user.id,
